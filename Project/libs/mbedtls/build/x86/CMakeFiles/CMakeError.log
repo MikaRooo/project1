@@ -1,0 +1,77 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_429e4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_429e4.dir/build.make CMakeFiles/cmTC_429e4.dir/build
+gmake[1]: вход в каталог «/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+Building C object CMakeFiles/cmTC_429e4.dir/src.c.o
+/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android19 --sysroot=/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DCMAKE_HAVE_LIBC_PTHREAD  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror  -fPIE -MD -MT CMakeFiles/cmTC_429e4.dir/src.c.o -MF CMakeFiles/cmTC_429e4.dir/src.c.o.d -o CMakeFiles/cmTC_429e4.dir/src.c.o -c /home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c
+/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c:13:3: error: implicit declaration of function 'pthread_cancel' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+  pthread_cancel(thread);
+  ^
+/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c:13:3: note: did you mean 'pthread_once'?
+/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/pthread.h:275:5: note: 'pthread_once' declared here
+int pthread_once(pthread_once_t* __once, void (*__init_routine)(void));
+    ^
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_429e4.dir/build.make:79: CMakeFiles/cmTC_429e4.dir/src.c.o] Ошибка 1
+gmake[1]: выход из каталога «/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+gmake: *** [Makefile:127: cmTC_429e4/fast] Ошибка 2
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_e75c4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_e75c4.dir/build.make CMakeFiles/cmTC_e75c4.dir/build
+gmake[1]: вход в каталог «/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+Building C object CMakeFiles/cmTC_e75c4.dir/CheckFunctionExists.c.o
+/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android19 --sysroot=/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -MD -MT CMakeFiles/cmTC_e75c4.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_e75c4.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_e75c4.dir/CheckFunctionExists.c.o -c /home/katya/Android/Sdk/cmake/3.22.1/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e75c4
+/home/katya/Android/Sdk/cmake/3.22.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e75c4.dir/link.txt --verbose=1
+/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android19 --sysroot=/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments    CMakeFiles/cmTC_e75c4.dir/CheckFunctionExists.c.o -o cmTC_e75c4  -lpthreads -latomic -lm 
+ld: error: unable to find library -lpthreads
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gmake[1]: *** [CMakeFiles/cmTC_e75c4.dir/build.make:100: cmTC_e75c4] Ошибка 1
+gmake[1]: выход из каталога «/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+gmake: *** [Makefile:127: cmTC_e75c4/fast] Ошибка 2
+
+
+
+Determining if the function pthread_create exists in the pthread failed with the following output:
+Change Dir: /home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_b396b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b396b.dir/build.make CMakeFiles/cmTC_b396b.dir/build
+gmake[1]: вход в каталог «/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+Building C object CMakeFiles/cmTC_b396b.dir/CheckFunctionExists.c.o
+/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android19 --sysroot=/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -MD -MT CMakeFiles/cmTC_b396b.dir/CheckFunctionExists.c.o -MF CMakeFiles/cmTC_b396b.dir/CheckFunctionExists.c.o.d -o CMakeFiles/cmTC_b396b.dir/CheckFunctionExists.c.o -c /home/katya/Android/Sdk/cmake/3.22.1/share/cmake-3.22/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b396b
+/home/katya/Android/Sdk/cmake/3.22.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b396b.dir/link.txt --verbose=1
+/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android19 --sysroot=/home/katya/Android/Sdk/ndk/25.2.9519653/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -Wall -Wextra -Wwrite-strings -Wpointer-arith -Wimplicit-fallthrough -Wshadow -Wvla -Wformat=2 -Wno-format-nonliteral -Werror -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments    CMakeFiles/cmTC_b396b.dir/CheckFunctionExists.c.o -o cmTC_b396b  -lpthread -latomic -lm 
+ld: error: unable to find library -lpthread
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gmake[1]: *** [CMakeFiles/cmTC_b396b.dir/build.make:100: cmTC_b396b] Ошибка 1
+gmake[1]: выход из каталога «/home/katya/AndroidStudioProjects/Project/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+gmake: *** [Makefile:127: cmTC_b396b/fast] Ошибка 2
+
+
+

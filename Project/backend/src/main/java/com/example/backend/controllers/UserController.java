@@ -8,10 +8,10 @@ import com.example.backend.repositories.ArtistRepository;
 import com.example.backend.repositories.CountryRepository;
 import com.example.backend.repositories.MuseumRepository;
 import com.example.backend.repositories.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -91,7 +91,7 @@ public class UserController {
 
     @PostMapping("/users/{id}/addmuseums")
     public ResponseEntity<Object> addMuseums(@PathVariable(value = "id") Long userId,
-                                             @Validated @RequestBody Set<Museum> museums) {
+                                             @Valid@RequestBody Set<Museum> museums) {
         Optional<User> uu = userRepository.findById(userId);
         int cnt = 0;
         if (uu.isPresent()) {
@@ -114,12 +114,12 @@ public class UserController {
 
     @PostMapping("/users/{id}/removemuseums")
     public ResponseEntity<Object> removeMuseums(@PathVariable(value = "id") Long userId,
-                                                @Validated@RequestBody Set<Museum> museums) {
+                                                @Valid@RequestBody Set<Museum> museums) {
         Optional<User> uu = userRepository.findById(userId);
         int cnt = 0;
         if (uu.isPresent()) {
             User u = uu.get();
-            for (Museum m : museums) {
+            for (Museum m : u.museums) {
                 u.removeMuseum(m);
                 cnt++;
             }

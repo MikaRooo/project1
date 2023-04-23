@@ -1,20 +1,26 @@
 package com.example.backend.controllers;
 
 
+
+
+import com.example.backend.models.User;
+import com.example.backend.repositories.UserRepository;
+import com.example.backend.tools.Utils;
+import jakarta.persistence.Access;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.backend.repositories.UserRepository;
-import com.example.backend.models.User;
-import com.example.backend.tools.Utils;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
@@ -38,7 +44,20 @@ public class LoginController {
                     u2.token = token;
                     u2.activity = LocalDateTime.now();
                     User u3 = userRepository.saveAndFlush(u2);
-                    return new ResponseEntity<Object>(u3, HttpStatus.OK);
+
+
+                    String log = String.valueOf(u3.login);
+                    String em = String.valueOf(u3.email);
+                    String mus = String.valueOf(u3.museums);
+                    String tok = String.valueOf(u3.token);
+                    Map<String, String> rm = new HashMap<>();
+                    rm.put("login", log);
+                    rm.put("email", em);
+                    rm.put("token", tok);
+                    rm.put("museums", mus);
+
+
+                    return new ResponseEntity<Object>(rm, HttpStatus.OK);
                 }
 
             }
@@ -62,4 +81,3 @@ public class LoginController {
     }
 
 }
-

@@ -1,4 +1,5 @@
 package com.example.backend.auth;
+import com.example.backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,16 +11,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.www.NonceExpiredException;
 import org.springframework.stereotype.Component;
-import com.example.backend.repositories.UserRepository;
+
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
 public class AuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+
     @Value("${private.session-timeout}")
     private int sessionTimeout;
-
 
     @Autowired
     UserRepository userRepository;
@@ -44,7 +45,6 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 
         boolean timeout = true;
         LocalDateTime dt  = LocalDateTime.now();
-
         if (u.activity != null) {
             LocalDateTime nt = u.activity.plusMinutes(sessionTimeout);
             if (dt.isBefore(nt))
@@ -71,4 +71,3 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
     }
 
 }
-

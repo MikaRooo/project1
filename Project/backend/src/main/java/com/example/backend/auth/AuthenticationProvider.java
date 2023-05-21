@@ -39,7 +39,7 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 
         Object token = usernamePasswordAuthenticationToken.getCredentials();
         Optional<com.example.backend.models.User> uu = userRepository.findByToken(String.valueOf(token));
-        if (!uu.isPresent())
+        if (uu.isEmpty())
             throw new UsernameNotFoundException("user is not found");
         com.example.backend.models.User u = uu.get();
 
@@ -50,17 +50,6 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
             if (dt.isBefore(nt))
                 timeout = false;
         }
-
-        if (timeout) {
-            u.token = null;
-            userRepository.save(u);
-            throw new NonceExpiredException("session is expired");
-        }
-        else {
-            u.activity = dt;
-            userRepository.save(u);
-        }
-
         UserDetails user= new User(u.login, u.password,
                 true,
                 true,

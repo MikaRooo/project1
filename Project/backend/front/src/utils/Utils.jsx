@@ -24,7 +24,9 @@ class Utils {
     {
         return JSON.parse(localStorage.getItem('user'))
     }
+    getId(){
+        return JSON.parse(localStorage.getItem('id'))
+    }
 }
 
 export default new Utils()
-

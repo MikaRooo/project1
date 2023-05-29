@@ -64,20 +64,19 @@ public class LoginController {
         }
         return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
     }
-
     @GetMapping("/logout")
-    public ResponseEntity logout(@RequestHeader(value = "Authorization", required = false) String token) {
+    public ResponseEntity<Object> logout(@RequestHeader(value = "Authorization", required = false) String token) {
         if (token != null && !token.isEmpty()) {
             token = StringUtils.removeStart(token, "Bearer").trim();
-            Optional uu = userRepository.findByToken(token);
+            Optional<User> uu = userRepository.findByToken(token);
             if (uu.isPresent()) {
                 User u = (User) uu.get();
                 u.token = null;
                 userRepository.save(u);
-                return new ResponseEntity(HttpStatus.OK);
+                return new ResponseEntity<Object>(HttpStatus.OK);
             }
         }
-        return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
     }
 
 }
